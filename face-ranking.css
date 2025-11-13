@@ -1,0 +1,242 @@
+/* ========================================
+   EASY CUSTOMIZATION SECTION
+   Change these values to customize your design
+   ======================================== */
+
+:root {
+    /* Image sizing */
+    --image-width: 180px;
+    --image-height: 180px;
+    
+    /* Grid spacing */
+    --grid-gap: 20px;
+    --grid-columns: 5; /* Number of images per row */
+    
+    /* Typography */
+    --question-font-size: 32px;
+    --question-font-family: Arial, sans-serif;
+    --question-color: #000000;
+    
+    --rank-font-size: 24px;
+    --rank-font-family: Arial, sans-serif;
+    --rank-color: #000000;
+    
+    /* Colors */
+    --background-color: #ffffff;
+    --arrow-color: #000000;
+    --arrow-hover-color: #666666;
+    
+    /* Spacing */
+    --header-margin-bottom: 40px;
+    --container-padding: 40px;
+}
+
+/* ========================================
+   END CUSTOMIZATION SECTION
+   ======================================== */
+
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--question-font-family);
+    background-color: var(--background-color);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: var(--container-padding);
+}
+
+/* Header with navigation and question */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--header-margin-bottom);
+    gap: 20px;
+}
+
+.title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
+    font-size: var(--question-font-size);
+    font-family: var(--question-font-family);
+    color: var(--question-color);
+    text-align: center;
+    font-weight: bold;
+    flex: 1;
+}
+
+.zoom-btn {
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: var(--arrow-color);
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.zoom-btn:hover {
+    color: var(--arrow-hover-color);
+}
+
+.arrow-btn {
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: var(--arrow-color);
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.arrow-btn:hover {
+    color: var(--arrow-hover-color);
+}
+
+.arrow-prev {
+    transform: rotate(180deg);
+}
+
+/* Image grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    gap: var(--grid-gap);
+    justify-items: center;
+}
+
+/* Zoom level: Top 1 (largest) */
+.image-grid.zoom-1 {
+    grid-template-columns: 1fr;
+    justify-content: center;
+}
+
+.image-grid.zoom-1 .image-item img {
+    width: 600px;
+    height: 600px;
+}
+
+.image-grid.zoom-1 .rank-number {
+    font-size: 48px;
+}
+
+/* Zoom level: Top 3 (large) */
+.image-grid.zoom-3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.image-grid.zoom-3 .image-item img {
+    width: 350px;
+    height: 350px;
+}
+
+.image-grid.zoom-3 .rank-number {
+    font-size: 36px;
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-item img {
+    width: var(--image-width);
+    height: var(--image-height);
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.image-item img:hover {
+    transform: scale(3);
+    z-index: 10;
+    position: relative;
+}
+
+.rank-number {
+    font-size: var(--rank-font-size);
+    font-family: var(--rank-font-family);
+    color: var(--rank-color);
+    font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 1400px) {
+    .image-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .image-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .question {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 900px) {
+    .image-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .question {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 700px) {
+    .image-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .header {
+        flex-direction: column;
+    }
+    
+    .question {
+        font-size: 20px;
+    }
+    
+    .arrow-btn {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

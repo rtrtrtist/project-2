@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Rankings</title>
+    <link rel="stylesheet" href="face-ranking.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation and Question Header -->
+        <div class="header">
+            <div class="title-row">
+                <h1 class="question" id="question">Who is most likely to take a ridiculously long shower?</h1>
+                <button class="arrow-btn" id="nextBtn">►</button>
+            </div>
+            <div class="controls">
+                <button class="zoom-btn" id="zoomOut">–</button>
+                <button class="zoom-btn" id="zoomIn">+</button>
+            </div>
+        </div>
+
+        <!-- Image Grid -->
+        <div class="image-grid" id="imageGrid">
+            <!-- Images will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // EASY CUSTOMIZATION SECTION
+        // ========================================
+        
+        // Your list of questions
+        const questions = [
+            "Who is most likely to take a ridiculously long shower?",
+            "Who is most likely to be late?",
+            "Who is most likely to forget their keys?",
+            "Who is most likely to eat the last slice of pizza?",
+            "Who is most likely to stay up all night?",
+            "Who is most likely to start a conversation with a stranger?",
+            "Who is most likely to become famous?",
+            "Who is most likely to get lost in their own neighborhood?",
+            "Who is most likely to microwave ice cream to soften it?",
+            "Who is most likely to forget why they entered a room?",
+            "Who is most likely to take a shortcut that doubles the travel time?",
+            "Who is most likely to keep chopsticks in their bag at all times?",
+            "Who is most likely to overthink a text for 47 minutes?",
+            "Who is most likely to set an alarm for vibe check?",
+            "Who is most likely to water fake plants?",
+            "Who is most likely to name their car something majestic?",
+            "Who is most likely to fold laundry but never put it away?",
+            "Who is most likely to argue with GPS directions?",
+            "Who is most likely to lose the remote while holding it?",
+            "Who is most likely to still use Internet Explorer out of loyalty?",
+            "Who is most likely to forget where they parked?",
+            "Who is most likely to laugh at their own joke before finishing it?",
+            "Who is most likely to bring snacks to a 10-minute meeting?",
+            "Who is most likely to clap when the airplane lands?",
+            "Who is most likely to drink salad dressing straight from the bottle?",
+            "Who is most likely to forget they were cooking pasta until it becomes soup?",
+            "Who is most likely to get lost in a museum gift shop?",
+            "Who is most likely to imagine an audience when walking alone?",
+            "Who is most likely to accidentally send a meme to their boss?",
+            "Who is most likely to compliment a stranger’s dog before greeting the stranger?",
+            "Who is most likely to laugh during a serious moment?",
+            "Who is most likely to rehearse arguments in the shower?",
+            "Who is most likely to plan a road trip and forget snacks?",
+            "Who is most likely to miss their train while standing next to it?",
+            "Who is most likely to hang a frame but forget the photo inside?",
+            "Who is most likely to own five half-burnt candles?",
+            "Who is most likely to cry during a cooking show?",
+            "Who is most likely to have 87 tabs open right now?",
+            "Who is most likely to wish happy birthday to an appliance?",
+            "Who is most likely to take an umbrella but forget their phone?",
+            "Who is most likely to over-apologize to an inanimate object?",
+            "Who is most likely to keep every box just in case?",
+            "Who is most likely to reheat the same coffee five times?",
+            "Who is most likely to accidentally join a video call with the camera on?",
+            "Who is most likely to own five types of mustard?",
+            "Who is most likely to wave at the security camera for good luck?",
+            "Who is most likely to overpack for a weekend trip?",
+            "Who is most likely to vacuum at 11 p.m. for peace?",
+            "Who is most likely to text omw while still in bed?",
+            "Who is most likely to trip over absolutely nothing?",
+            "Who is most likely to forget someone’s name immediately after hearing it?",
+            "Who is most likely to fall asleep mid-conversation?",
+            "Who is most likely to have a favorite spoon?",
+            "Who is most likely to put their phone in the fridge?",
+            "Who is most likely to cry at a commercial for dish soap?",
+            "Who is most likely to keep every candle jar for storage?",
+            "Who is most likely to get emotionally attached to a pen?",
+            "Who is most likely to google how to focus instead of focusing?",
+            "Who is most likely to take 300 photos of the same sunset?",
+            "Who is most likely to make a to-do list that includes make to-do list?",
+            "Who is most likely to clap when their toast pops up?",
+            "Who is most likely to name their Wi-Fi something dramatic?",
+            "Who is most likely to forget their keys?",
+            "Who is most likely to eat cereal out of a mug?",
+            "Who is most likely to laugh during a serious moment?",
+            "Who is most likely to overanalyze song lyrics for hidden messages?",
+            "Who is most likely to secretly think pigeons are spies?",
+            "Who is most likely to own five half-burnt candles?",
+            "Who is most likely to wave back at someone who wasn’t waving at them?",
+            "Who is most likely to get lost in their own neighborhood?",
+            "Who is most likely to wish happy birthday to an appliance?",
+            "Who is most likely to clap when the GPS says you’ve arrived?",
+            "Who is most likely to forget they’re boiling water?",
+            "Who is most likely to cry at a cooking show?",
+            "Who is most likely to talk to the moon?",
+            "Who is most likely to forget what they were Googling mid-search?",
+            "Who is most likely to forget what day it is every day?",
+            "Who is most likely to make a to-do list that includes make to-do list?",
+            "Who is most likely to water fake plants?",
+            "Who is most likely to overthink a text for 47 minutes?",
+            "Who is most likely to text omw while still in bed?",
+            "Who is most likely to leave a party without saying goodbye?",
+            "Who is most likely to set three alarm clocks just in case?",
+            "Who is most likely to wear socks to bed in July?",
+            "Who is most likely to forget sunscreen but bring five chargers?",
+            "Who is most likely to start journaling at 2:00 a.m.?",
+            "Who is most likely to wave at the security camera for good luck?",
+            "Who is most likely to start cleaning and end up rearranging furniture?",
+            "Who is most likely to talk to plants like they’re coworkers?",
+            "Who is most likely to smile awkwardly when someone waves at someone else?",
+            "Who is most likely to lose their wallet inside their own house?",
+            "Who is most likely to rehearse conversations before they happen?",
+            "Who is most likely to think their pet understands sarcasm?",
+            "Who is most likely to screenshot everything just in case?",
+            "Who is most likely to hum the wrong song but insist it’s right?",
+            "Who is most likely to use three alarm clocks just in case?",
+            "Who is most likely to be late?",
+            "Who is most likely to become famous?",
+            "Who is most likely to stay up all night?",
+            "Who is most likely to start a conversation with a stranger?",
+            "Who is most likely to take a ridiculously long shower?",
+            "Who is most likely to eat the last slice of pizza?",
+            "Who is most likely to stare into space for 15 minutes and call it thinking?",
+        ];
+
+        // Total number of images in your folder
+        const totalImages = 100;
+
+        // Your image folder path and file naming pattern
+        // Adjust this based on your actual file structure
+        // Example: if your files are "face1.jpg", "face2.jpg", etc.
+        const imageFolder = "images/";
+        const imagePrefix = "image";
+        const imageExtensions = [".webp"]; // Will try these in order
+        
+        // ========================================
+        // END CUSTOMIZATION SECTION
+        // ========================================
+
+        let currentQuestionIndex = 0;
+        let shuffledOrder = [];
+        let shuffledQuestions = [];
+        let zoomLevel = 100; // Can be 1, 3, or 100
+
+        // Function to shuffle array
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Shuffle questions on page load
+        shuffledQuestions = shuffleArray(questions);
+
+        // Function to generate image order
+        function generateImageOrder() {
+            const imageNumbers = Array.from({length: totalImages}, (_, i) => i + 1);
+            return shuffleArray(imageNumbers);
+        }
+
+        // Function to update button visibility
+        function updateButtonVisibility() {
+            const zoomOutBtn = document.getElementById('zoomOut');
+            const zoomInBtn = document.getElementById('zoomIn');
+            
+            // Hide "-" button when at zoom level 100 (most zoomed out)
+            if (zoomLevel === 100) {
+                zoomOutBtn.style.visibility = 'hidden';
+            } else {
+                zoomOutBtn.style.visibility = 'visible';
+            }
+            
+            // Hide "+" button when at zoom level 1 (most zoomed in)
+            if (zoomLevel === 1) {
+                zoomInBtn.style.visibility = 'hidden';
+            } else {
+                zoomInBtn.style.visibility = 'visible';
+            }
+        }
+
+        // Function to display images
+        function displayImages() {
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+            
+            // Set grid class based on zoom level
+            grid.className = 'image-grid';
+            if (zoomLevel === 1) {
+                grid.classList.add('zoom-1');
+            } else if (zoomLevel === 3) {
+                grid.classList.add('zoom-3');
+            }
+            
+            // Determine how many images to show
+            const imagesToShow = shuffledOrder.slice(0, zoomLevel);
+            
+            imagesToShow.forEach((imageNum, index) => {
+                const imageItem = document.createElement('div');
+                imageItem.className = 'image-item';
+                
+                const img = document.createElement('img');
+                
+                // Try each extension in order until one loads
+                let extensionIndex = 0;
+                img.src = `${imageFolder}${imagePrefix}${imageNum}${imageExtensions[extensionIndex]}`;
+                
+                // If image fails to load, try the next extension
+                img.onerror = function() {
+                    extensionIndex++;
+                    if (extensionIndex < imageExtensions.length) {
+                        this.src = `${imageFolder}${imagePrefix}${imageNum}${imageExtensions[extensionIndex]}`;
+                    }
+                };
+                
+                img.alt = `Face ${imageNum}`;
+                img.loading = 'lazy'; // Optimize loading for 100 images
+                
+                const rank = document.createElement('div');
+                rank.className = 'rank-number';
+                rank.textContent = index + 1;
+                
+                imageItem.appendChild(img);
+                imageItem.appendChild(rank);
+                grid.appendChild(imageItem);
+            });
+            
+            // Update button visibility after displaying images
+            updateButtonVisibility();
+        }
+
+        // Function to update question
+        function updateQuestion() {
+            const currentQuestion = shuffledQuestions[currentQuestionIndex];
+            document.getElementById('question').textContent = currentQuestion;
+            shuffledOrder = generateImageOrder();
+            displayImages();
+        }
+
+        // Navigation buttons
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentQuestionIndex = (currentQuestionIndex + 1) % shuffledQuestions.length;
+            updateQuestion();
+        });
+
+        // Zoom buttons
+        document.getElementById('zoomIn').addEventListener('click', () => {
+            if (zoomLevel === 100) {
+                zoomLevel = 3;
+            } else if (zoomLevel === 3) {
+                zoomLevel = 1;
+            }
+            displayImages();
+        });
+
+        document.getElementById('zoomOut').addEventListener('click', () => {
+            if (zoomLevel === 1) {
+                zoomLevel = 3;
+            } else if (zoomLevel === 3) {
+                zoomLevel = 100;
+            }
+            displayImages();
+        });
+
+        // Initialize on page load
+        updateQuestion();
+    </script>
+</body>
+</html>
